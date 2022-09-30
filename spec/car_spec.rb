@@ -2,13 +2,13 @@ require 'car'
 
 describe 'Car' do
   describe 'attributes' do
-    it "should allow read and write to :make" do
+    it "allows read and write to :make" do
       car = Car.new
       car.make = 'Honda'
       expect(car.make).to eq('Honda')
     end
 
-    it "should allow read and write to :year" do
+    it "allows read and write to :year" do
       pending("It's pending due to some bugs")
       car = Car.new
       car.year = 2022
@@ -16,13 +16,13 @@ describe 'Car' do
       expect(car.year).to eq(2021)
     end
 
-    it "should allow read and write to :color" do
+    it "allows read and write to :color" do
       car = Car.new
       car.color = "Black"
       expect(car.color).to eq('Black')
     end
 
-    it "should allow reading for :wheels" do
+    it "allows reading for :wheels" do
       # SKIPPING - adding skip to skip this block
       # skip
       # we can also add message to skip
@@ -33,14 +33,14 @@ describe 'Car' do
     end
 
     # PENDING - Omit the block
-    it "should allow writing to :doors"
+    it "allows writing to :doors"
   end
 
   # SKIPPING - xdescribe to skip this block
   # xdescribe '.colors' do
   # we add '.' before the class methods
   describe '.colors' do
-    it "should return an array of colors" do
+    it "returns an array of colors" do
       colors = ['blue', 'black', 'red', 'green']
       expect(Car.colors).to match_array(colors)
     end
@@ -48,13 +48,13 @@ describe 'Car' do
 
   # we add '#' before the instance methods
   describe '#full_name' do
-    it "should return a string with the expected format" do
+    it "returns a string with the expected format" do
       car = Car.new(make: "Honda", year: "2022", color: "white")
       expect(car.full_name).to eq('2022 Honda (white)')
     end
 
     context "when initialized with no arguments" do
-      it "should return a string with default values" do
+      it "returns a string with default values" do
         car = Car.new
         expect(car.full_name).to eq('2007 Volvo (unknown)')
       end
