@@ -1,6 +1,6 @@
 describe "Expectation Matchers" do
 
-  describe "Equivalence Matchers" do
+  xdescribe "Equivalence Matchers" do
     it "will match loosy equality with #eq" do
       a = "Some string"
       b = "Some string"
@@ -34,7 +34,7 @@ describe "Expectation Matchers" do
     end
   end
 
-  describe "Truthiness Matchers" do
+  xdescribe "Truthiness Matchers" do
     it "will match true/false" do
       expect(1 < 2).to be(true) # do not use be_true
       expect(1 > 2).to be(false) # do not use be_false
@@ -57,6 +57,23 @@ describe "Expectation Matchers" do
       expect(nil).to be(nil)
       expect(0).not_to be_nil
       expect(false).not_to be_nil
+    end
+  end
+
+  describe "Numeric Matchers" do
+    it "will match less than or greater than" do
+      expect(10).to be == 10
+      expect(10).to be > 9
+      expect(10).to be < 11
+      expect(10).to be >= 10
+      expect(10).to be <= 10
+    end
+
+    it "will match numeric ranges" do
+      expect(10).to be_between(5, 10).inclusive
+      expect(10).not_to be_between(5, 10).exclusive
+      expect(5..10).to cover(9)
+      expect(10).to be_within(1).of(11)
     end
   end
 end
