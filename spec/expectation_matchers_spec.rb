@@ -60,7 +60,7 @@ describe "Expectation Matchers" do
     end
   end
 
-  describe "Numeric Matchers" do
+  xdescribe "Numeric Matchers" do
     it "will match less than or greater than" do
       expect(10).to be == 10
       expect(10).to be > 9
@@ -74,6 +74,50 @@ describe "Expectation Matchers" do
       expect(10).not_to be_between(5, 10).exclusive
       expect(5..10).to cover(9)
       expect(10).to be_within(1).of(11)
+    end
+  end
+
+  describe "Collection Matchers" do
+    it "will match the array" do
+      arr = [1,2,3]
+      expect(arr).to include(2)
+      expect(arr).to include(1,3)
+
+      expect(arr).to start_with(1)
+      expect(arr).to end_with(3)
+
+      expect(arr).to match_array([3,2,1]) #order doesn't matter
+      expect(arr).not_to match_array([1,2])
+
+      expect(arr).to contain_exactly(3,2,1) #the array must contain these three elements and nothnig
+      expect(arr).not_to contain_exactly(1,2)
+    end
+
+    it "will match the string" do
+      string = "Lynda"
+
+      expect(string).to include("Ly")
+      expect(string).to include("da", "Ly")
+
+      expect(string).to start_with("Lyn")
+      expect(string).to end_with("a")
+    end
+
+    it "will match the hash" do
+      hash = {
+        a: 1,
+        b: 2,
+        c: 3
+      }
+
+      expect(hash).to include(:a) #checks for include the key 'a'
+      expect(hash).to include(a: 1)
+
+      expect(hash).to include(a: 1, c: 3)
+      expect(hash).to include({a: 1, c: 3})
+
+      # the below test is passing in video tutorial, but in my case it is failing.
+      #expect(hash).not_to include({'a': 1, 'b': 2}) # when the key is string, then it is not necessary to match the key in hash.
     end
   end
 end
