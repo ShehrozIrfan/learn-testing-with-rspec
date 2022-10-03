@@ -77,7 +77,7 @@ describe "Expectation Matchers" do
     end
   end
 
-  describe "Collection Matchers" do
+  xdescribe "Collection Matchers" do
     it "will match the array" do
       arr = [1,2,3]
       expect(arr).to include(2)
@@ -120,4 +120,58 @@ describe "Expectation Matchers" do
       #expect(hash).not_to include({'a': 1, 'b': 2}) # when the key is string, then it is not necessary to match the key in hash.
     end
   end
+
+  describe "Other Useful Matchers" do
+    it "will match string with a regex" do
+      string = "This is some dummy string"
+      expect(string).to match(/is(.+)string/) #it should return true, if the "is" and "string" is somewhere in the string
+
+      expect('123').to match(/\d{3}/)
+      expect(123).not_to match(/\d{3}/) #to match with a regex it must be a string
+
+      email = "shehrozirfan89@gmail.com"
+      expect(email).to match(/\A\w+@\w+\.\w{3}\Z/)
+    end
+
+    it "will match object type" do
+      expect('hello').to be_instance_of(String)
+      expect('hello').to be_an_instance_of(String) #alias of be instance of
+
+      #the d/bw instance_of and kind_of is that, instance_of is true when an object is of the same class, but for kind of it can be hierarchical. Might be a child class etc.
+      expect('hello').to be_kind_of(String)
+      expect('hello').to be_a_kind_of(String) #alias of be kind of
+
+      expect('test').to be_a(String)
+      expect([1,2,3]).to be_an(Array)
+    end
+
+    it "will match objects with #respond_to" do
+      string = "hello"
+      expect(string).to respond_to(:length)
+      expect(string).not_to respond_to(:sort)
+    end
+
+    it "will match class attributes with #has_attributes" do
+
+      class Car
+        attr_accessor :make, :year, :color
+      end
+
+      car = Car.new
+      car.make = "Honda"
+      car.year = 2022
+      car.color = "white"
+
+      expect(car).to have_attributes(color: 'white')
+      expect(car).to have_attributes(year: 2022, color: "white", make: "Honda")
+    end
+
+    it "will match anything with #satisfy" do
+      #it is the most flexible matcher
+      expect(10).to satisfy do |val|
+        (val > 5) && (val <= 10) && (val % 2 == 0)
+      end
+    end
+  end
+
 end
